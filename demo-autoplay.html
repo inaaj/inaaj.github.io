@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>Inaaj Feed Demo - Autoplay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<div id="inaaj-feed"></div>
+<script>
+    ((tagPath = window.location.origin + '/tag.js') => {
+        window.onload = () => {
+            (async (params) => {
+                const jsContent = await (await fetch(tagPath)).text();
+                // Pass Params to Function
+                const src = jsContent.replace(/"\[PARAMS]"/gi, JSON.stringify(params));
+
+                const script = document.createElement("script");
+                script.type = 'text/javascript';
+                script.text = src;
+                document.body.appendChild(script);
+            })({
+                id: "inaaj-feed",
+                baseUrl: "https://feed.inaaj.org",
+                cdnUrl: "https://cdn.inaaj.org",
+                category: "hing",
+                maxFeeds: 25,
+                showAds: true,
+                adConfig: {
+                    adAfter: 6,
+                    type: 'DFP',
+                    DFP: {
+                        divId: 'div-gpt-ad-1594197321299',
+                        adSlot: '/102101596/Test_300x250',
+                        width: 300,
+                        height: 250
+                    },
+                    ADX: {}
+                },
+                waitFor: 0,
+                loadPixel: 'https://trac.performoo.com/capture?type=Feed&action=Load&ed=PFwTjfNBBynJCZH%2Fcsi6GA%2BzwpApGhcW39A19Za8C6M6cKQ0AMi7SurH7yXhUBsr&cat=hing&srcURL=[SITE_DOMAIN]&cb=[CACHE_BUSTER_MS]',
+                showBranding: true,
+                brandingCTA: 'https://inaaj.com',
+                native: false,
+                iframe: false,
+                brandingConfig: {
+                    backgroundColor: 'white',
+                    color: 'black',
+                    borderBottom: '1px solid black',
+                    borderRadius: '1px'
+                }
+            });
+        }
+    })('https://tags.inaaj.org/tag.min.js');
+</script>
+</html>
